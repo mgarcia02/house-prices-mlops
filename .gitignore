@@ -32,9 +32,8 @@ data/processed/*
 # -------------------------
 # Logs
 # -------------------------
-logs/
-*.log
-*.json
+logs/*
+!logs/.gitkeep
 
 # -------------------------
 # Experiments / Models
