@@ -1,0 +1,68 @@
+# -------------------------
+# Python
+# -------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+*.joblib
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# -------------------------
+# Jupyter Notebooks
+# -------------------------
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# -------------------------
+# Data
+# -------------------------
+data/raw/*
+data/processed/*
+
+# Mantener carpetas vacías
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# -------------------------
+# Logs
+# -------------------------
+logs/
+*.log
+*.json
+
+# -------------------------
+# Experiments / Models
+# -------------------------
+experiments/models/*
+experiments/mlflow/
+experiments/*.csv
+
+# Mantener estructura
+!experiments/.gitkeep
+!experiments/models/.gitkeep
+
+# -------------------------
+# Config / Secrets
+# -------------------------
+*.env
+.env*
+
+# -------------------------
+# IDE / Editor
+# -------------------------
+.vscode/
+.idea/
+.DS_Store
+
+# -------------------------
+# Build / Packaging
+# -------------------------
+dist/
+build/
+*.egg-info/
