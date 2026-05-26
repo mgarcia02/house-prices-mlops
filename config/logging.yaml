@@ -1,3 +1,75 @@
-# Configuración del sistema de logging
-# Aquí se definirá la estructura de handlers, formatters y niveles de log
-# Se completará cuando el sistema de logging esté listo
+version: 1
+
+# ============================================================
+# FORMATTERS
+# ============================================================
+formatters:
+  console_formatter:
+    format: "[%(levelname)s] %(message)s"
+
+  file_formatter:
+    (): src.utils.formatters.UtcFormatter
+    format: "%(asctime)s | %(levelname)s | %(name)s | %(module)s:%(lineno)d | %(message)s"
+    datefmt: "%Y-%m-%dT%H:%M:%S"
+
+  json_formatter:
+    (): src.utils.formatters.JsonFormatter
+
+# ============================================================
+# FILTERS
+# ============================================================
+filters:
+  remove_traceback_filter:
+    (): src.utils.filters.RemoveTracebackFilter
+
+# ============================================================
+# HANDLERS
+# ============================================================
+handlers:
+  app_file:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: file_formatter
+    filename: logs/app.log
+    encoding: utf8
+    maxBytes: 1048576
+    backupCount: 5
+
+  json_file:
+    class: logging.FileHandler
+    level: INFO
+    formatter: json_formatter
+    filename: logs/app.jsonl
+    encoding: utf8
+
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: console_formatter
+    filters: [remove_traceback_filter]
+
+# ============================================================
+# LOGGERS ESPECÍFICOS
+# ============================================================
+loggers:
+  training:
+    level: DEBUG
+    handlers: [app_file, json_file, console]
+    propagate: False
+
+  inference:
+    level: INFO
+    handlers: [app_file, json_file, console]
+    propagate: False
+
+  utils:
+    level: DEBUG
+    handlers: [app_file, console]
+    propagate: False
+
+# ============================================================
+# ROOT LOGGER
+# ============================================================
+root:
+  level: INFO
+  handlers: [console]
